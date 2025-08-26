@@ -24,6 +24,10 @@ def travel_and_buy(station="Vesta Station", what="IRON", amount=cargo.get_free_h
     travel_station_wait_until_recive(station)
     c.buy(station, what, amount)
 
+def travel_position_and_buy(x, y, what="IRON", amount=cargo.get_free_hold()):
+    travel_position_until_recive(x, y)
+
+    c.buy(list(c.get_near_station().json()["stations"])[0], what, amount)
 
 def travel_and_sell(station="Core Station", what="IRON", amount=cargo.get_free_hold()):
     travel_station_wait_until_recive(station)
@@ -41,6 +45,7 @@ def travel_position_until_recive(x, y):
     travel_position(x, y)
     while not recived_position(x, y):
         time.sleep(1)
+    time.sleep(.5)
     print("coords erreicht x:" + str(x) + ", y:" + str(y))
 
 
