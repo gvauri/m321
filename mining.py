@@ -12,8 +12,9 @@ def mine():
         print(state())
         if(response.status_code == 403):
             print("cooling down")
-            time.sleep(60)
-        time.sleep(5)
+            time.sleep(30)
+            find_correct_angle()
+        time.sleep(10)
 
 
 

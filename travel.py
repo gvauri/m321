@@ -56,4 +56,5 @@ def recived_position(x, y):
 
 def travel_position_and_mine(x, y):
     travel_position_until_recive(x, y)
+    time.sleep(2)
     mining.mine()
