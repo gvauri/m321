@@ -6,15 +6,26 @@ import requests
 url = "http://10.255.255.254:2018/"
 
 def mine():
-    find_correct_angle()
+    response = activate()
     while cargo.get_free_hold() > 0:
-        response = activate()
-        print(state())
-        if(response.status_code == 403):
+        s = state()
+        print(s)
+        if cargo.muss_bewegt_werden():
+            deactivate()
+            cargo.bewege_alle_nach_hinten_structure(.5)
+        if response.status_code == 403:
             print("cooling down")
             time.sleep(30)
             find_correct_angle()
-        time.sleep(10)
+        elif (not bool(s["is_active"])):
+            response = activate()
+            print("activate: " + str(response.json()))
+        elif (not bool(s["is_mining"])):
+            print("coorect angle")
+            find_correct_angle()
+        time.sleep(1)
+    deactivate()
+
 
 
 

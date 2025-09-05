@@ -32,7 +32,10 @@ def travel_position_and_buy(x, y, what="IRON", amount=cargo.get_free_hold()):
 
 def travel_and_sell(station="Core Station", what="IRON", amount=cargo.get_free_hold()):
     travel_station_wait_until_recive(station)
-    c.sell(station, what, amount)
+    print(amount)
+    for i in range(int(amount/10)+1):
+        c.sell(station, what, 12)
+        time.sleep(.1)
 
 
 def travel_station_wait_until_recive(station):
@@ -58,3 +61,11 @@ def travel_position_and_mine(x, y):
     travel_position_until_recive(x, y)
     time.sleep(2)
     mining.mine()
+
+def travell_and_sell_all():
+    while cargo.get_free_hold() != cargo.get_hold_size():
+        resources = cargo.get_cargo_hold().json()["hold"]["resources"]
+        print(resources)
+        for resource, amount in resources.items():
+            travel_and_sell(what=resource, amount=amount)
+

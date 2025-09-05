@@ -1,5 +1,5 @@
 import requests
-
+import cargo
 url = "http://10.255.255.254:2011/"
 
 
@@ -9,7 +9,9 @@ def buy(station, what, amount):
         "what": what,
         "amount": amount
     }
-    return requests.post(url + "buy", json=payload)
+    while cargo.get_free_hold()>5:
+        cargo.bewege_nach_hinten_wenn_voll()
+        requests.post(url + "buy", json=payload)
 
 
 def sell(station, what, amount):
