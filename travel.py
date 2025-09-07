@@ -25,15 +25,25 @@ def travel_and_buy(station="Vesta Station", what="IRON", amount=cargo.get_free_h
     travel_station_wait_until_recive(station)
     c.buy(station, what, amount)
 
+
 def travel_position_and_buy(x, y, what="IRON", amount=cargo.get_free_hold()):
     travel_position_until_recive(x, y)
     time.sleep(5)
     c.buy(list(c.get_near_station().json()["stations"])[0], what, amount)
 
-def travel_and_sell(station="Core Station", what="IRON", amount=cargo.get_free_hold()):
+
+def travel_and_sell(station="Core Station", what="IRON", amount=cargo.get_hold_size() - cargo.get_free_hold()):
     travel_station_wait_until_recive(station)
     print(amount)
-    for i in range(int(amount/10)+1):
+    for i in range(int(amount / 10) + 1):
+        c.sell(station, what, 12)
+        time.sleep(.1)
+
+
+def travel_position_and_sell(x, y, station, what, amount=cargo.get_hold_size() - cargo.get_free_hold()):
+    travel_position_until_recive(x, y)
+    print(amount)
+    for i in range(int(amount / 10) + 1):
         c.sell(station, what, 12)
         time.sleep(.1)
 
@@ -57,15 +67,36 @@ def recived_position(x, y):
     pos = position().json()["pos"]
     return x + 100 > pos["x"] > x - 100 and y + 100 > pos["y"] > y - 100
 
-def travel_position_and_mine(x, y):
-    travel_position_until_recive(x, y)
-    time.sleep(2)
-    mining.mine()
 
-def travell_and_sell_all():
+def travel_position_and_mine(x, y, laser_amplifier=0, matter_stabilizer=0, laser=1):
+    travel_position_until_recive(x, y + 200)
+    time.sleep(2)
+    mining.mine(matter_stabilizer, laser_amplifier, laser)
+
+
+def travell_and_sell_all_until_empty():
     while cargo.get_free_hold() != cargo.get_hold_size():
         resources = cargo.get_cargo_hold().json()["hold"]["resources"]
         print(resources)
         for resource, amount in resources.items():
             travel_and_sell(what=resource, amount=amount)
 
+
+def travell_position_and_sell_all_until_empty(x, y, station):
+    while cargo.get_free_hold() != cargo.get_hold_size():
+        resources = cargo.get_cargo_hold().json()["hold"]["resources"]
+        for resource, amount in resources.items():
+            travel_position_and_sell(x, y, station, what=resource, amount=amount)
+
+
+def travell_and_sell_all():
+    resources = cargo.get_cargo_hold().json()["hold"]["resources"]
+    print(resources)
+    for resource, amount in resources.items():
+        travel_and_sell(what=resource, amount=amount)
+
+
+def travell_position_and_sell_all(x, y, station):
+    resources = cargo.get_cargo_hold().json()["hold"]["resources"]
+    for resource, amount in resources.items():
+        travel_position_and_sell(x, y, station, what=resource, amount=amount)
