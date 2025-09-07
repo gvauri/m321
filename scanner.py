@@ -12,5 +12,6 @@ def scanner(handle_station):
     channel.queue_bind(exchange='scanner/detected_objects', queue=queue_name)
     for method_frame, properties, body in channel.consume(queue=queue_name, auto_ack=True):
         for station in json.loads(body.decode('utf-8')):
-            handle_station(station)
+            if station["name"] != "192.168.101.20":
+                handle_station(station)
 
