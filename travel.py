@@ -89,11 +89,11 @@ def travell_position_and_sell_all_until_empty(x, y, station):
             travel_position_and_sell(x, y, station, what=resource, amount=amount)
 
 
-def travell_and_sell_all():
+def travell_and_sell_all(station="Core Station"):
     resources = cargo.get_cargo_hold().json()["hold"]["resources"]
     print(resources)
     for resource, amount in resources.items():
-        travel_and_sell(what=resource, amount=amount)
+        travel_and_sell(what=resource, amount=amount, station=station)
 
 
 def travell_position_and_sell_all(x, y, station):
