@@ -29,7 +29,7 @@ def mine(matter_stabilizer=0, laser_amplifier=0, laser=1):
             find_correct_angle()
         time.sleep(1)
     deactivate()
-    energy_management.mining_aus(matter_stabilizer)
+    energy_management.fliegen_ein(matter_stabilizer)
 
 def find_correct_angle():
     a = 0

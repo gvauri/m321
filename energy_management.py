@@ -6,7 +6,7 @@ def setze_energie(limits):
     requests.put("http://10.255.255.254:2033/limits", json=limits)
 
 
-def mining_aus(matter_stabilizer=0):
+def fliegen_ein(matter_stabilizer=0):
     setze_energie({
         "laser": 0,
         "cargo_bot": 0,
@@ -62,3 +62,22 @@ def cargo_bot_ein(matter_stabilizer=0):
 
 def get_energie():
     return requests.get("http://10.255.255.254:2033/limits").json()
+
+
+def jumpdrive_ein():
+    setze_energie({
+        "laser": 0,
+        "cargo_bot": 0,
+        "laser_amplifier": 0,
+        "sensor_plasma_radiation": 0,
+        "thruster_back": 0,
+        "thruster_front": 0,
+        "thruster_front_left": 0,
+        "thruster_front_right": 0,
+        "thruster_bottom_left": 0,
+        "thruster_bottom_right": 0,
+        "scanner": 0,
+        "sensor_atomic_field": 0,
+        "matter_stabilizer": 0,
+        "jumpdrive":1,
+    })

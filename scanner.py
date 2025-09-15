@@ -1,6 +1,5 @@
 import pika
 import json
-import travel as t
 
 
 def scanner(handle_station):
