@@ -2,11 +2,17 @@ import requests
 
 
 def setze_energie(limits):
-    requests.put("http://10.255.255.254:2032/limits", json=limits)
-    requests.put("http://10.255.255.254:2033/limits", json=limits)
+    try:
+        requests.put("http://10.255.255.254:2032/limits", json=limits)
+    except Exception as e:
+        print("Exception occured: " + str(e))
+    try:
+        requests.put("http://10.255.255.254:2033/limits", json=limits)
+    except Exception as e:
+        print("Exception occured: " + str(e))
 
 
-def fliegen_ein(matter_stabilizer=0):
+def fliegen_ein(matter_stabilizer=0, schild=0):
     setze_energie({
         "laser": 0,
         "cargo_bot": 0,
@@ -21,8 +27,10 @@ def fliegen_ein(matter_stabilizer=0):
         "scanner": 1,
         "sensor_atomic_field": matter_stabilizer,
         "matter_stabilizer": matter_stabilizer,
+        "nuclear_reactor": 0,
+        "sensor_void_energy": schild,
+        "shield_generator": schild,
     })
-
 
 def mining_ein(matter_stabilizer=0, laser_amplifier=0, laser=1):
     setze_energie({
@@ -39,8 +47,10 @@ def mining_ein(matter_stabilizer=0, laser_amplifier=0, laser=1):
         "scanner": 0,
         "sensor_atomic_field": matter_stabilizer,
         "matter_stabilizer": matter_stabilizer,
+        "nuclear_reactor": 1,
+        "analyzer_beta": 1,
+        "sensor_void_energy": 0,
     })
-
 
 def cargo_bot_ein(matter_stabilizer=0):
     setze_energie({
@@ -57,6 +67,9 @@ def cargo_bot_ein(matter_stabilizer=0):
         "scanner": 0,
         "sensor_atomic_field": matter_stabilizer,
         "matter_stabilizer": matter_stabilizer,
+        "nuclear_reactor": 1,
+        "analyzer_beta": 1,
+        "sensor_void_energy": 0
     })
 
 
@@ -80,4 +93,5 @@ def jumpdrive_ein():
         "sensor_atomic_field": 0,
         "matter_stabilizer": 0,
         "jumpdrive":1,
+        "nuclear_reactor":1
     })

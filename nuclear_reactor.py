@@ -1,0 +1,2 @@
+# wieder einen client erstelln mit namen nuclear_reactor und scope nuclear_reactor-dedicated
+# curl -XPOST http://10.255.255.254:2039/configure_oauth --data '{"client_secret": "MuA7FRcYFOqQAnsyO28m3wUmfsis1ZW3", "authorize_url": "http://10.255.255.254:2015/realms/laser-realm/protocol/openid-connect/auth", "token_url": 	"http://10.255.255.254:2015/realms/laser-realm/protocol/openid-connect/token" }'
