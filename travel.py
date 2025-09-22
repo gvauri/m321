@@ -71,10 +71,10 @@ def recived_position(x, y):
     return x + 100 > pos["x"] > x - 100 and y + 100 > pos["y"] > y - 100
 
 
-def travel_position_and_mine(x, y, laser_amplifier=0, matter_stabilizer=0, laser=1, shield=0):
+def travel_position_and_mine(x, y, laser_amplifier=0, matter_stabilizer=0, laser=1, shield=0, magnon=False):
     travel_position_until_recive(x, y + 200)
     time.sleep(2)
-    mining.mine(matter_stabilizer, laser_amplifier, laser, shield)
+    mining.mine(matter_stabilizer, laser_amplifier, laser, shield, magnon)
 
 
 def travell_and_sell_all_until_empty():

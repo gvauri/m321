@@ -58,3 +58,44 @@ def get_last_none_row():
         if any(cell is None for cell in row):
             last_none_row = i
     return last_none_row
+
+def get_last_row_where_no_item():
+    last_empty_row = 0
+    for i, row in enumerate(cargo.get_structure().json()["hold"]):
+        if all(cell is None for cell in row):
+            last_empty_row = i
+    return last_empty_row
+
+def bewege_magnon():
+    last_row = get_last_row_where_no_item()
+    for y in range(last_row):
+        for x in range(6):
+            print(bewege_structure({
+                "a": {
+                    "x": x*2+last_row%2,
+                    "y": y
+                },
+                "b": {
+                    "x": x*2+last_row%2,
+                    "y": y + 1
+                }
+            }).json())
+            time.sleep(.5)
+    for x in range(6):
+        print(bewege_structure({
+            "a": {
+                "x": x*2,
+                "y": 0
+            },
+            "b": {
+                "x": x*2+1,
+                "y": 0
+            }
+        }).json())
+        print(x,0," ", x*2+magnon_erste_zeile_richtung(last_row), 0)
+        time.sleep(.5)
+
+def magnon_erste_zeile_richtung(last_row):
+    if last_row%1:
+        return -1
+    return 1

@@ -1,6 +1,5 @@
 import time
 import uuid
-from asyncio import shield
 
 from pymongo import MongoClient
 import requests
@@ -22,6 +21,7 @@ def get_measure_data():
 def speicher_in_db():
     while True:
         result = get_measure_data()
+        print(result)
         client = MongoClient("mongodb://theship:theship1234@10.255.255.254:2021/theshipdb")
         db = client["theshipdb"]
         collection = db["vacuum-energy"]
