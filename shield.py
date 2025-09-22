@@ -35,3 +35,4 @@ def speicher_in_db():
 def schild_ein():
     energy_management.fliegen_ein(schild=1)
     speicher_in_db()
+schild_ein()

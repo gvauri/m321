@@ -6,17 +6,17 @@ import requests
 url = "http://10.255.255.254:2018/"
 
 
-def mine(matter_stabilizer=0, laser_amplifier=0, laser=1):
-    energy_management.mining_ein(matter_stabilizer, laser_amplifier, laser)
+def mine(matter_stabilizer=0, laser_amplifier=0, laser=1, shield=0):
+    energy_management.mining_ein(matter_stabilizer, laser_amplifier, laser, shield)
     response = activate()
     while cargo.get_free_hold() > 0:
         s = state()
         print(s)
         if cargo.muss_bewegt_werden():
             deactivate()
-            energy_management.cargo_bot_ein(matter_stabilizer)
+            energy_management.cargo_bot_ein(matter_stabilizer,shield)
             cargo.bewege_alle_nach_hinten_structure(.5)
-            energy_management.mining_ein(matter_stabilizer, laser_amplifier, laser)
+            energy_management.mining_ein(matter_stabilizer, laser_amplifier, laser, shield)
         if response.status_code == 403:
             print("cooling down")
             time.sleep(30)
@@ -29,7 +29,6 @@ def mine(matter_stabilizer=0, laser_amplifier=0, laser=1):
             find_correct_angle()
         time.sleep(1)
     deactivate()
-    energy_management.fliegen_ein(matter_stabilizer)
 
 def find_correct_angle():
     a = 0

@@ -3,16 +3,19 @@ import communication as c
 import cargo
 import time
 import mining
+import energy_management
 
 url = "http://10.255.255.254:2009/set_target"
 
 
 def travel_station(station):
+    energy_management.fliegen_ein()
     payload = {"target": station}
     return requests.post(url, json=payload)
 
 
 def travel_position(x, y):
+    energy_management.fliegen_ein()
     payload = {"target": {"x": x, "y": y}}
     return requests.post(url, json=payload)
 
@@ -68,10 +71,10 @@ def recived_position(x, y):
     return x + 100 > pos["x"] > x - 100 and y + 100 > pos["y"] > y - 100
 
 
-def travel_position_and_mine(x, y, laser_amplifier=0, matter_stabilizer=0, laser=1):
+def travel_position_and_mine(x, y, laser_amplifier=0, matter_stabilizer=0, laser=1, shield=0):
     travel_position_until_recive(x, y + 200)
     time.sleep(2)
-    mining.mine(matter_stabilizer, laser_amplifier, laser)
+    mining.mine(matter_stabilizer, laser_amplifier, laser, shield)
 
 
 def travell_and_sell_all_until_empty():
