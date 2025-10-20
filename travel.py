@@ -14,8 +14,8 @@ def travel_station(station):
     return requests.post(url, json=payload)
 
 
-def travel_position(x, y):
-    energy_management.fliegen_ein()
+def travel_position(x, y, matter_stabilizer=0, schild=0):
+    energy_management.fliegen_ein(matter_stabilizer, schild)
     payload = {"target": {"x": x, "y": y}}
     return requests.post(url, json=payload)
 
@@ -58,8 +58,8 @@ def travel_station_wait_until_recive(station):
     print(station)
 
 
-def travel_position_until_recive(x, y):
-    travel_position(x, y)
+def travel_position_until_recive(x, y, matter_stabilizer=1, schild=0):
+    travel_position(x, y, matter_stabilizer=matter_stabilizer, schild=schild)
     while not recived_position(x, y):
         time.sleep(1)
     time.sleep(.5)
@@ -72,7 +72,7 @@ def recived_position(x, y):
 
 
 def travel_position_and_mine(x, y, laser_amplifier=0, matter_stabilizer=0, laser=1, shield=0, magnon=False):
-    travel_position_until_recive(x, y + 200)
+    travel_position_until_recive(x, y + 200, matter_stabilizer=matter_stabilizer, schild=shield)
     time.sleep(2)
     mining.mine(matter_stabilizer, laser_amplifier, laser, shield, magnon)
 

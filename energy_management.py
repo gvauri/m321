@@ -81,7 +81,7 @@ def get_energie():
     return requests.get("http://10.255.255.254:2033/limits").json()
 
 
-def jumpdrive_ein():
+def jumpdrive_ein(matter_stabilizer=0):
     setze_energie({
         "laser": 0,
         "cargo_bot": 0,
@@ -94,8 +94,8 @@ def jumpdrive_ein():
         "thruster_bottom_left": 0,
         "thruster_bottom_right": 0,
         "scanner": 0,
-        "sensor_atomic_field": 0,
-        "matter_stabilizer": 0,
+        "sensor_atomic_field": matter_stabilizer,
+        "matter_stabilizer": matter_stabilizer,
         "jumpdrive": 1,
         "nuclear_reactor": 1
     })

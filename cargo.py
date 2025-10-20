@@ -99,3 +99,4 @@ def magnon_erste_zeile_richtung(last_row):
     if last_row%1:
         return -1
     return 1
+bewege_alle_nach_hinten_structure(0.5)

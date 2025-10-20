@@ -10,10 +10,10 @@ url = "opc.tcp://10.255.255.254:2035/"
 client = Client(url)
 
 
-def springe_zu(x, y):
+def springe_zu(x, y, matter_stabilizer=0):
     client.connect()
     while not ist_punkt_erreicht(x, y):
-        energy_management.jumpdrive_ein()
+        energy_management.jumpdrive_ein(matter_stabilizer)
         node = client.get_node("ns=0;i=20001")
         print(f"Node Name: {node.get_browse_name()}")
 
